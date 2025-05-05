@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freaky Fashion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="stylesheets\style.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".footer-section h3").forEach(header => {
+                header.addEventListener("click", function () {
+                    this.parentElement.classList.toggle("active");
+                });
+            });
+        });
+    </script>
+    
+</head>
+<body>
+    <header class="header-main">
+        <!-- LOGO samt knappar för kassa och wishlist -->
+        <div class="header-logo-search">
+            <img src="https://placehold.co/400x200.png" alt="logo" class="logo">
+            <div class="search-bar">
+                <input type="text" id="search" class placeholder="Sök produkt">
+                <div class="header-buttons">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+            </div>
+        </div>
+        <nav>
+            <ul class = "nav-links">
+                <li><a href="#">Nyheter</a></li>
+                <li><a href="#">Bästsäljare</a></li>
+                <li><a href="#">Kvinnor</a></li>
+                <li><a href="#">Män</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <!-- LÄGGA IN HERO OCH SPOTS I 1024PX eller större, sätta text mitt på bild.  -->
+        <section class="hero">
+            <img src="tshirt.jpg" alt="Hero">
+            <div class="hero-text">
+                <h2>Stil för alla</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos accusantium excepturi perferendis molestiae quia saepe beatae. Tempore, inventore perspiciatis est labore facere sunt corporis. Quo minima sed pariatur aliquid magnam!</p>
+            </div>
+        </section>
+        <section class="spots">
+            <div class="spot">
+                <img src="tshirt.jpg" alt="Spot 1">
+                <div class="spot-text">
+                    <h2>Jackor</h2>
+                    <p>Stiliga jackor för alla tillfällen</p>
+                </div>
+            </div>
+            <div class="spot">
+                <img src="tshirt.jpg" alt="Spot 2">
+                <div class="spot-text">
+                    <h2>Accessoarer</h2>
+                    <p>Stiliga accessoarer för alla tillfällen</p>
+                </div>
+            </div>
+            <div class="spot">
+                <img src="tshirt.jpg" alt="Spot 3">
+                <div class="spot-text">
+                    <h2>Skor</h2>
+                    <p>Stiliga skor för alla tillfällen</p>
+                </div>
+            </div>
+        </section>
+        <section class="products">
+            <h2>Populära Produkter</h2>
+            <div class="product-grid">
+                
+              <!-- Produktkort med uträkning för att sätta nyhet badge baserat på dagar man ger i argument. räknar om till JS tid baserat på Millisekunder
+               1000 millisekunder/sek, 60 sek/min, 60 min/timme, 24h/dag. sen det på antal dagar. samt en randomiser för att visa olika produktkort vid omladdningar. -->
+                <% 
+                const shuffledProducts = products.sort(() => 0.5 - Math.random());
+                shuffledProducts.slice(0, 8).forEach(product => { 
+                %>
+                  <a href="product-details.html" class="product-card">
+                    <div class="product-image-container"> 
+                        <% 
+                        const isWithinDays = (date, days) => new Date() - new Date(date) <= days * 24 * 60 * 60 * 1000; 
+                        if (isWithinDays(product.publication_date, 20)) { 
+                        %>
+                            <span class="badge">Nyhet</span>
+                        <% } %>
+                        <img src="<%= product.picture %>" alt="Svart T-Shirt">
+                        <span class="wishlist"><i class="fa-solid fa-heart"></i></span>
+                    </div>
+                    <div class="product-card-info">
+                        <h3 class="no-decoration column"><%= product.name %></h3>
+                        <p class="no-decoration column"><%= product.price %></p>
+                    </div>
+                    <p class="no-decoration"><%= product.brand %></p>
+                    <span class="details">Se mer</span>
+                  </a>
+                <% }) %>
+                
+            </div>
+        </section>
+        <section class="center">
+            <div class="pointers-grid">
+                <span><i class="fa-solid fa-box"></i> Gratis frakt och returer</span>
+                <span><i class="fa-solid fa-truck-fast"></i> Expressfrakt</span>
+                <span><i class="fa-solid fa-credit-card"></i> Säkra betalningar</span>
+                <span><i class="fa-solid fa-shirt"></i> Nyheter varje dag</span>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Shopping</h3>
+                <ul>
+                    <li>Vinterjackor</li>
+                    <li>Pufferjackor</li>
+                    <li>Kappa</li>
+                    <li>Trenchcoats</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Mina Sidor</h3>
+                <ul>
+                    <li>Mina Ordrar</li>
+                    <li>Mitt Konto</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Kundtjänst</h3>
+                <ul>
+                    <li>Returnpolicy</li>
+                    <li>Integritetspolicy</li>
+                </ul>
+            </div>
+        </div>
+        <small class="center">&copy; Freaky Fashion</small>
+    </footer>
+</body>
+</html>
