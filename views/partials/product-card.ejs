@@ -2,7 +2,7 @@
             <!-- Produktkort med uträkning för att sätta nyhet badge baserat på dagar man ger i argument. räknar om till JS tid baserat på Millisekunder
                  1000 millisekunder/sek, 60 sek/min, 60 min/timme, 24h/dag. sen det på antal dagar. samt en randomiser för att visa olika produktkort vid omladdningar. -->
                 
-<a href="products/<%= product.id %>" class="product-card">
+<a href="products/<%= product.id %>/<%= slugify(product.name, { lower: true }) %>" class="product-card">
   <div class="product-image-container"> 
       <% 
       const isWithinDays = (date, days) => new Date() - new Date(date) <= days * 24 * 60 * 60 * 1000; 

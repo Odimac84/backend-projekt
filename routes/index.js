@@ -4,14 +4,18 @@ var Database = require("better-sqlite3");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const slugify = require("slugify");
 
 const db = new Database("./data/data.db", {
   verbose: console.log,
 });
 
+/* Kontroll att Imagemapp existerar för att kunna lägga image filer som laddas upp där. */
 if (!fs.existsSync("public/images")) {
   fs.mkdirSync("public/images");
 }
+
+/* spara undan bild samt sätta string för namnet på bilden och spara undan denna i databasen. rename med Timestamp för att undvika samma namn på bilder.  */
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, "public/images"),
@@ -28,17 +32,25 @@ router.get("/", function (req, res, next) {
   res.render("index", {
     title: "Freaky Friday",
     products: products,
+    slugify: slugify,
   });
 });
 
 // PRODUCT ROUTES
 
-router.get("/products/:id", function (req, res, next) {
+router.get("/products/:id/:slug", function (req, res, next) {
   const selectProduct = db.prepare("SELECT * FROM products WHERE id = ?");
   const product = selectProduct.get(req.params.id);
 
   if (!product) {
     return res.status(404).send("Product not found");
+  }
+
+  const correctSlug = slugify(product.name, { lower: true });
+
+  if (req.params.slug !== correctSlug) {
+    // Redirect till korrekt URL om slug är fel
+    return res.redirect(`/products/${product.id}/${correctSlug}`);
   }
 
   res.render("product", {
@@ -91,12 +103,12 @@ router.post("/admin/delete/:id", (req, res, next) => {
     const info = deleteProduct.run(req.params.id);
 
     if (info.changes === 0) {
-      return res.status(404).json({ error: "Product not found" }); // JSON response for API-like behavior
+      return res.status(404).json({ error: "Product not found" }); // Product ej hittad
     }
 
-    res.redirect("/admin/products"); // Redirect after successful deletion
+    res.redirect("/admin/products"); // Redirect efter delete
   } catch (err) {
-    next(err); // Pass to Express error handler
+    next(err); // Hantera eventuella fel
   }
 });
 
