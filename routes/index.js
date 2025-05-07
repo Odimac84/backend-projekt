@@ -17,4 +17,18 @@ router.get("/", function (req, res, next) {
   });
 });
 
+router.get("/products/:id", function (req, res, next) {
+  const selectProduct = db.prepare("SELECT * FROM products WHERE id = ?");
+  const product = selectProduct.get(req.params.id);
+
+  if (!product) {
+    return res.status(404).send("Product not found");
+  }
+
+  res.render("product", {
+    title: product.name,
+    product: product,
+  });
+});
+
 module.exports = router;

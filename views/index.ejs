@@ -43,7 +43,7 @@
     <main>
         <!-- LÄGGA IN HERO OCH SPOTS I 1024PX eller större, sätta text mitt på bild.  -->
         <section class="hero">
-            <img src="tshirt.jpg" alt="Hero">
+            <img src="images/tshirt.jpg" alt="Hero">
             <div class="hero-text">
                 <h2>Stil för alla</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos accusantium excepturi perferendis molestiae quia saepe beatae. Tempore, inventore perspiciatis est labore facere sunt corporis. Quo minima sed pariatur aliquid magnam!</p>
@@ -51,21 +51,21 @@
         </section>
         <section class="spots">
             <div class="spot">
-                <img src="tshirt.jpg" alt="Spot 1">
+                <img src="images/tshirt.jpg" alt="Spot 1">
                 <div class="spot-text">
                     <h2>Jackor</h2>
                     <p>Stiliga jackor för alla tillfällen</p>
                 </div>
             </div>
             <div class="spot">
-                <img src="tshirt.jpg" alt="Spot 2">
+                <img src="images/tshirt.jpg" alt="Spot 2">
                 <div class="spot-text">
                     <h2>Accessoarer</h2>
                     <p>Stiliga accessoarer för alla tillfällen</p>
                 </div>
             </div>
             <div class="spot">
-                <img src="tshirt.jpg" alt="Spot 3">
+                <img src="images/tshirt.jpg" alt="Spot 3">
                 <div class="spot-text">
                     <h2>Skor</h2>
                     <p>Stiliga skor för alla tillfällen</p>
@@ -82,7 +82,7 @@
                 const shuffledProducts = products.sort(() => 0.5 - Math.random());
                 shuffledProducts.slice(0, 8).forEach(product => { 
                 %>
-                  <a href="product-details.html" class="product-card">
+                  <a href="products/<%= product.id %>" class="product-card">
                     <div class="product-image-container"> 
                         <% 
                         const isWithinDays = (date, days) => new Date() - new Date(date) <= days * 24 * 60 * 60 * 1000; 
@@ -97,7 +97,7 @@
                         <h3 class="no-decoration column"><%= product.name %></h3>
                         <p class="no-decoration column"><%= product.price %></p>
                     </div>
-                    <p class="no-decoration"><%= product.brand %></p>
+                    <p class="no-decoration"><%= product.description %></p>
                     <span class="details">Se mer</span>
                   </a>
                 <% }) %>
