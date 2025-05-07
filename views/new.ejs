@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Administration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../stylesheets/admin.css">
+</head>
+<body>
+    <header class="header-admin">
+        <div class="header-text">Administration</div>
+        </div>
+
+    </header>
+    <main class="admin-main">
+        
+        <section class = "product-list">
+            <div class="admin-sidebar">
+                <h1>Hej, Admin!</h1>
+                <p>Välkommen till Freaky Fashion. Här kan du hantera dina produkter.</p>
+            </div>
+            <div class="form-container">
+                <form action="new" method="post" enctype="multipart/form-data" class="product-form">
+                    <label for="name" >Namn</label>
+                    <input type="text" name="name" id="name" class="input-shorter" required placeholder="Ange Namn" maxlength="50">
+                    <label for="description">Beskrivning</label>
+                    <textarea name="description" id="description"  placeholder="Ange Beskrivning"></textarea>
+                    <label for="brand" >Brand</label>
+                    <input type="text" name="brand" id="brand" class="input-shorter" placeholder="Ange Märke">
+                    <label for="image" required>Bild</label>
+                    <input type="file" name="picture" id="picture" accept="image/*" >
+                    <label for="SKU">SKU</label>
+                    <input type="text" 
+                        name="SKU" 
+                        id="SKU" 
+                        class="input-shorter"
+                        required 
+                        placeholder="SKU format ABC123" 
+                        pattern="[A-Z]{3}[0-9]{3}" 
+                        title="Ange ett SKU i formatet ABC123 (tre stora bokstäver följt av tre siffror)"
+                        maxlength="6"
+                        oninput="this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '').replace(/^([^A-Z]*)/, '').replace(/^([A-Z]{3})[^0-9]*/, '$1');">
+                    <!-- JS som kontrollerar att de första 3 tecknena är bokstäver och tar annars bort dem, 
+                     gör om små bokstöver till versaler. och kontrollerar sedan likadant de sista 3 är siffror. 
+                     Detta görs direkt vid inmatningen. samt så kontrolleras det en maxlängd på ströngen och att denna inte överstiger 6 tecken. -->
+                        <label for="price">Pris</label>
+                    <input type="number" name="price" id="price" class="input-shorter"  placeholder="Pris">
+                    <label for ="publication-date">Publiseringsdatum</label>
+                    <input type="date" name="publication_date" id="publication_date" class="input-shorter" >
+                    <button type="submit" id="submit-form">Lägg till</button>
+                </form>
+            </div>
+        </section>
+    </main>
+    <footer class="footer-admin">
+        <p class="center">&copy;  Educado AB </p>
+    </footer>
+</body>
+</html>
+

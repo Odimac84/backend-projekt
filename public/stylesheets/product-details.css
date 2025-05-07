@@ -1,0 +1,402 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0 1em;
+    text-align: center;
+    background-color: #f9f9f9;
+    text-decoration: none;
+}
+
+.container {
+    width: 100%;
+    max-width: 80%;
+    margin: auto;
+    padding: 10px;
+}
+
+/* Header */
+.header-main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: center;
+    background: Lightgray;
+    color: Black;
+}
+.header-main a {
+    color: Black;
+    text-decoration: none;
+}
+
+.header-logo-search {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-height: auto;
+    overflow: hidden;
+    align-items: center;
+}
+.logo {
+    width: 100%;
+    height: auto;
+}
+
+.search-bar {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;    
+    max-height: 30px;
+    max-width: 200px;
+}¨
+
+.fa-heart .fa-cart-shopping {
+    font-size: 1.5em;
+    cursor: pointer;
+    text-decoration: none;
+
+}
+
+.header-buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+/* Navbar */
+.nav-links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.nav-links li {
+    display: flex;
+    flex-direction: column;
+}
+.icon {
+    font-size: 20px;
+    cursor: pointer;
+}
+/* Produktsektion */
+.product-card {
+    background: #f5f5f5;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.product-image {
+    position: relative;
+}
+
+.product-image img {
+    width: 100%;
+    height:auto;
+    border-radius: 10px;
+}
+
+.badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: red;
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 0.9rem;
+}
+
+.price {
+    font-size: 20px;
+    color: red;
+}
+
+.buy-button {
+    display: block;
+    max-width:200px;
+    padding: 10px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Liknande produkter */
+.related-products {
+    display: none;
+}
+
+.product-list {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+}
+
+.product-item {
+    background: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    min-width: 120px;
+    text-align: center;
+}
+
+.product-item img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+/* Footer */
+.footer {
+    background: #f0f0f0;
+    color: black;
+    padding: 20px;
+    text-align: center;
+    border-top: 2px solid #ccc;
+}
+
+.footer-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-section {
+    text-align: left;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.footer-section h3 {
+    cursor: pointer;
+    margin: 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.footer-section ul {
+    list-style: none; 
+    padding: 0;
+    display: none;
+    margin-left: 1em;
+}
+
+.footer-section.active ul {
+    display: block;
+}
+
+.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.pointers-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+/* SLIDESHOW */
+
+.product-card-carousel {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+    background: white;
+    border-radius: 5px;
+    overflow: hidden;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.product-image-container {
+    position: relative;
+}
+
+.product-card-carousel img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.product-card-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.no-decoration {
+    font-size: 1.2em;
+    color: black;
+    margin-top: 10px;
+    text-decoration: none;
+}
+
+.carousel {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    display: none;
+}
+
+.carousel-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; 
+}
+
+.carousel-track::-webkit-scrollbar {
+    display: none; /* Döljer scrollbar för Webkit-baserade browsers !!läs safari!! */
+}
+
+.carousel-item {
+    flex: 0 0 calc(100% / 3 - 1rem); /* Visar 3 bilder åt gången */
+    text-align: center;
+    scroll-snap-align: start;
+}
+
+.carousel-item img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.carousel-button {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+/* Tablet-storlek */
+@media (min-width: 640px) {
+    .header-main {
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        width: 100%;
+    }
+
+    .logo {
+        width: 200px;
+        height: auto;
+    }
+    
+    .header-logo-search {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        margin: 5px;
+    }
+    
+    .header-buttons {
+       position: absolute;
+       top: 10px;
+       right: 20px;
+       margin: 0;
+       padding: 0;
+    }
+
+     .nav-links {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+    .container {
+        max-width: 80%;
+    }
+    .product-card {
+        display: flex;
+        align-items: center;
+        text-align: left;
+    }
+    .product-image img {
+        max-width: 250px;
+    }
+    .product-info {
+        margin-left: 20px;
+        width: 40%;
+    }
+    .buy-button {
+        max-width: 180px;
+        margin: 0;
+    }
+    .related-products {
+        margin-top: 20px;
+        display: block;
+    }
+    .footer-container {
+        flex-direction: row;
+        gap: 5rem;
+    }
+
+    .footer-section ul {
+        display: block;
+    }
+
+    .pointers-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .footer-section h3 {
+        cursor: default;
+        margin: 0;
+        padding: 10px;
+        border-radius: 5px;
+    }
+    .carousel {
+        display: block;
+    }
+}
+
+/* Desktop-storlek */
+@media (min-width: 1024px) {
+    .container {
+        max-width: 80%;
+    }
+    .product-card {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .product-image img {
+        max-width: 600px;
+    }
+    .product-list {
+        justify-content: center;
+    }
+    .product-info {
+        width: 50%;
+    }
+    .pointers-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}

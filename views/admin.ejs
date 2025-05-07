@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Administration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="..\stylesheets\admin.css">
+</head>
+<body>
+    <header class="header-admin">
+        <div class="header-text">Administration
+        </div>
+
+    </header>
+    
+    <main class="admin-main">
+        
+        <section class = "product-list">
+            <div class="admin-sidebar">
+                <h1>Hej, Admin!</h1>
+                <p>Välkommen till Freaky Fashion. Här kan du hantera dina produkter.</p>
+            </div>
+            <div class="admin-main-section">
+                <h1>Produkter</h1>
+                <div class="button-row">
+                    <a href="new.html" class="button">Ny Produkt</a>
+                </div>
+                <table class="product-table">
+                    <thead>
+                        <tr>
+                            <th class="th-product">Produkt</th>
+                            <th class="th-SKU">SKU</th>
+                            <th class="th-price">Pris</th>
+                            <th class="th-edit"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% products.forEach(product => { %>
+                            <tr>
+                                <td><%= product.name %> </td>
+                                <td><%= product.SKU %></td>
+                                <td><%= product.price %></td>
+                                <td>
+                                    <a href="products/Edit.html"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a href="products/Delete.html"><i class="fa-solid fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        <% }) %>  
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    <footer class="footer-admin">
+        <p class="center">&copy;  Educado AB </p>
+    </footer>
+</body>
+</html>

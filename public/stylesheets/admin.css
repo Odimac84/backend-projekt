@@ -1,0 +1,157 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0 1em;
+    background-color: #f9f9f9;
+    text-decoration: none;
+}
+
+.header-admin {
+    background: black;
+    color: white;
+    padding: 10px;
+}
+.admin-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 10px;
+    min-height: 80vh;
+}
+.header-text {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+.admin-sidebar {
+    background: lightgrey;
+    width: 20%;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+.admin-main-section {
+    width: 90%;
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+.button-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end
+}	
+
+.button {
+    background: black;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+.product-list {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+}
+
+.footer-admin {
+    background: black;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.product-table tr:nth-child(even) {
+    background-color: lightgrey;
+}
+
+.th-product {
+    width: 40%;
+}
+
+.th-SKU {
+    width: 20%;
+}
+
+.th-price {
+    width: 20%;
+}
+
+.th-edit {
+    width: 15%;
+    align-items: center;
+}
+
+td a {
+    text-decoration: none;
+    color: black;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.product-table th, .product-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.product-table th {
+    background-color: #f2f2f2;
+}
+
+
+/* Textstyling för FORM */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 80%;
+    padding: 20px;
+    border: 1px solid black;
+}
+
+.product-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input-shorter {
+    max-width: 200px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+#description {
+    height: 100px;
+    max-width: 300px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+#submit-form {
+    background: lightgrey;
+    color: black;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    width: 75px;
+}
+
+.checkbox-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}

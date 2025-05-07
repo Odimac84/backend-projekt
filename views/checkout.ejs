@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freaky Fashion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="stylesheets\style.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".footer-section h3").forEach(header => {
+                header.addEventListener("click", function () {
+                    this.parentElement.classList.toggle("active");
+                });
+            });
+        });
+    </script>
+    
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header-main">
+        <div class="header-logo-search">
+            <img src="https://placehold.co/400x200.png" alt="logo" class="logo">
+            <div class="search-bar">
+                <input type="text" id="search" placeholder="Sök produkt">
+                <div class="header-buttons">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+            </div>
+        </div>
+        <nav>
+            <ul class = "nav-links">
+                <li><a href="#">Nyheter</a></li>
+                <li><a href="#">Bästsäljare</a></li>
+                <li><a href="#">Kvinnor</a></li>
+                <li><a href="#">Män</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!-- Kassa -->
+    <main class="checkout-container">
+        <h1>Kassan</h1>
+        <section class="cart-summary">
+            <div class="cart-summary-row">
+                <div class="cart-summary-item">
+                    <p class="bold">1 x Svart T-Shirt </p>
+                    <p>199 SEK</p>
+                </div>
+                <div class="cart-summary-price">
+                    <p class="bold">199 SEK</p>
+                </div>
+            </div>
+            <div class="cart-summary-row">
+                <div class="cart-summary-item">
+                    <p class="bold">1 x Svart T-Shirt </p>
+                    <p>199 SEK</p>
+                </div>
+                <div class="cart-summary-price">
+                    <p class="bold">199 SEK</p>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="cart-summary-tab">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Produkt</th>
+                        <th>Antal</th>
+                        <th>Pris</th>
+                        <th>Totalt</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Svart T-Shirt</td>
+                        <td>1</td>
+                        <td>199 SEK</td>
+                        <td>199 SEK</td>
+                    </tr>
+                    <tr>
+                        <td>Vit T-Shirt</td>
+                        <td>2</td>
+                        <td>199 SEK</td>
+                        <td>398 SEK</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="customer-info">
+            <h2>Kunduppgifter</h2>
+            <form>
+                <div class="form-group form-group-name">
+                    <label for="firstname">
+                        <input type="text" placeholder="Förnamn">
+                    </label>
+                    <label for="lastname">
+                        <input type="text" placeholder="Efternamn">
+                    </label>
+                </div>
+                <div class="form-group-row">
+                    <input type="email" placeholder="E-post">
+                </div>
+                <fieldset class="address-fieldset">
+                    <legend>Adress</legend>
+                    <input class="form-group-row" type="text" placeholder="Gata">
+                    <div class="form-group">
+                        <input type="text" placeholder="Postnummer">
+                        <input type="text" placeholder="Stad">
+                    </div>
+                </fieldset>
+                <label class="newsletter-label"><input type="checkbox" class="newsletter-checkbox"> Jag vill ta emot nyhetsbrev</label>
+                <button type="submit" class="checkout-button">Köp</button>
+            </form>
+        </section>
+    </main>
+    
+
+    <section class="center">
+        <div class="pointers-grid checkout-pointers">
+            <span><i class="fa-solid fa-box"></i> Gratis frakt och returer</span>
+            <span><i class="fa-solid fa-truck-fast"></i> Expressfrakt</span>
+            <span><i class="fa-solid fa-credit-card"></i> Säkra betalningar</span>
+            <span><i class="fa-solid fa-shirt"></i> Nyheter varje dag</span>
+        </div>
+    </section>
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Shopping</h3>
+                <ul>
+                    <li>Vinterjackor</li>
+                    <li>Pufferjackor</li>
+                    <li>Kappa</li>
+                    <li>Trenchcoats</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Mina Sidor</h3>
+                <ul>
+                    <li>Mina Ordrar</li>
+                    <li>Mitt Konto</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Kundtjänst</h3>
+                <ul>
+                    <li>Returnpolicy</li>
+                    <li>Integritetspolicy</li>
+                </ul>
+            </div>
+        </div>
+        <small class="center">&copy; Freaky Fashion</small>
+    </footer>
+
+</body>
+</html>
