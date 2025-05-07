@@ -31,6 +31,8 @@ router.get("/", function (req, res, next) {
   });
 });
 
+// PRODUCT ROUTES
+
 router.get("/products/:id", function (req, res, next) {
   const selectProduct = db.prepare("SELECT * FROM products WHERE id = ?");
   const product = selectProduct.get(req.params.id);
@@ -45,6 +47,7 @@ router.get("/products/:id", function (req, res, next) {
   });
 });
 
+// KASSA ROUTES
 router.get("/basket", function (req, res, next) {
   const selectProducts = db.prepare("SELECT * FROM products");
   const products = selectProducts.all();
@@ -65,6 +68,7 @@ router.get("/checkout", function (req, res, next) {
   });
 });
 
+// ADMIN ROUTES
 router.get("/admin/products", function (req, res, next) {
   const selectProducts = db.prepare("SELECT * FROM products");
   const products = selectProducts.all();
@@ -81,10 +85,22 @@ router.get("/admin/new", function (req, res, next) {
   });
 });
 
-router.post("/admin/new", upload.single("picture"), function (req, res, next) {
-  console.log("BODY:", req.body); // <== payloadkoll
-  console.log("FILE:", req.file); // <== Bildkoll
+router.post("/admin/delete/:id", (req, res, next) => {
+  try {
+    const deleteProduct = db.prepare("DELETE FROM products WHERE id = ?");
+    const info = deleteProduct.run(req.params.id);
 
+    if (info.changes === 0) {
+      return res.status(404).json({ error: "Product not found" }); // JSON response for API-like behavior
+    }
+
+    res.redirect("/admin/products"); // Redirect after successful deletion
+  } catch (err) {
+    next(err); // Pass to Express error handler
+  }
+});
+
+router.post("/admin/new", upload.single("picture"), function (req, res, next) {
   if (!req.file) {
     return res.status(400).send("Ingen fil mottagen");
   }

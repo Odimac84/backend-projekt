@@ -24,7 +24,7 @@
             <div class="admin-main-section">
                 <h1>Produkter</h1>
                 <div class="button-row">
-                    <a href="new.html" class="button">Ny Produkt</a>
+                    <a href="new" class="button">Ny Produkt</a>
                 </div>
                 <table class="product-table">
                     <thead>
@@ -42,8 +42,11 @@
                                 <td><%= product.SKU %></td>
                                 <td><%= product.price %></td>
                                 <td>
-                                    <a href="products/Edit.html"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <a href="products/Delete.html"><i class="fa-solid fa-trash"></i></a>
+                                    <form action="/admin/delete/<%= product.id %>" method="post">
+                                        <button type="submit">
+                                          <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                      </form>
                                 </td>
                             </tr>
                         <% }) %>  
