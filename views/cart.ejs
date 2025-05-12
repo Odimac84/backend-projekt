@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freaky Fashion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="stylesheets\style.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".footer-section h3").forEach(header => {
+                header.addEventListener("click", function () {
+                    this.parentElement.classList.toggle("active");
+                });
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Update quantity
+            document.querySelectorAll(".qty-input").forEach(input => {
+                input.addEventListener("change", async function () {
+                const id = this.dataset.id;
+                const quantity = this.value;
+
+                const res = await fetch("/cart/update", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ id, quantity }),
+                });
+
+                const result = await res.json();
+                if (result.success) {
+                    location.reload();
+                } else {
+                    alert("Kunde inte uppdatera varukorgen.");
+                }
+                });
+            });
+
+            // Remove item
+            document.querySelectorAll(".remove-btn").forEach(btn => {
+                btn.addEventListener("click", async function () {
+                const id = this.dataset.id;
+
+                const res = await fetch("/cart/remove", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ id }),
+                });
+
+                const result = await res.json();
+                if (result.success) {
+                    location.reload();
+                } else {
+                    alert("Kunde inte ta bort varan.");
+                }
+                });
+            });
+            });
+
+    </script>
+    
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header-main">
+        <div class="header-logo-search">
+            <img src="https://placehold.co/400x200.png" alt="logo" class="logo">
+            <div class="search-bar">
+                <input type="text" id="search" placeholder="Sök produkt">
+                <div class="header-buttons">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+            </div>
+        </div>
+        <nav>
+            <ul class = "nav-links">
+                <li><a href="#">Nyheter</a></li>
+                <li><a href="#">Bästsäljare</a></li>
+                <li><a href="#">Kvinnor</a></li>
+                <li><a href="#">Män</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!-- Kassa -->
+    <main class="checkout-container">
+        <h1>Kassan</h1>
+        <section class="cart-summary">
+            <div class="cart-summary-row">
+                <% if (cart.length === 0) { %>
+                    <p>Cart is empty.</p>
+                  <% } else { %>
+                        <% cart.forEach(item => { %>
+                            <div class="cart-summary-item">
+                                <p class="bold"><%= item.name %> </p>
+                                <p><%= item.price.toFixed(2) %></p>
+                                <p><input
+                                    type="number"
+                                    class="qty-input"
+                                    data-id="<%= item.id %>"
+                                    value="<%= item.quantity %>"
+                                    min="1"
+                                    /></p>
+                                <p><%= (item.price * item.quantity).toFixed(2) %></p>
+                                <button class="remove-btn" data-id="<%= item.id %>">❌</button>
+                            </div>
+                        <% }) %>
+                    <h3>Total: $<%= total.toFixed(2) %></h3>
+                    <form method="GET" action="/checkout">
+                      <button type="submit">Checkout</button>
+                    </form>
+                <% } %>
+            </div>
+        </section>
+
+
+        <section class="cart-summary-tab">
+            <% if (cart.length === 0) { %>
+                <p>Cart is empty.</p>
+              <% } else { %>
+                <form method="POST" action="/cart/update">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Produkt</th>
+                                <th>Antal</th>
+                                <th>Totalt</th>
+                                <th>Pris</th>
+                                <th>Ta bort</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% cart.forEach(item => { %>
+                                <tr>
+                                    <td class="bold"><%= item.name %> </td>
+                                    <td><input
+                                        type="number"
+                                        class="qty-input"
+                                        data-id="<%= item.id %>"
+                                        value="<%= item.quantity %>"
+                                        min="1"
+                                        />
+                                    </td>
+                                    <td><%= item.price.toFixed(2) %></td>
+                                    <td><%= (item.price * item.quantity).toFixed(2) %></td>
+                                    <td><button class="remove-btn" data-id="<%= item.id %>">❌</button></td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </form>
+                <h3>Total: <%= total.toFixed(2) %></h3>
+                <form method="GET" action="/checkout">
+                  <button type="submit">Checkout</button>
+                </form>
+            <% } %>
+        </section>
+        
+    </main>
+    
+
+    <section class="center">
+        <div class="pointers-grid checkout-pointers">
+            <span><i class="fa-solid fa-box"></i> Gratis frakt och returer</span>
+            <span><i class="fa-solid fa-truck-fast"></i> Expressfrakt</span>
+            <span><i class="fa-solid fa-credit-card"></i> Säkra betalningar</span>
+            <span><i class="fa-solid fa-shirt"></i> Nyheter varje dag</span>
+        </div>
+    </section>
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Shopping</h3>
+                <ul>
+                    <li>Vinterjackor</li>
+                    <li>Pufferjackor</li>
+                    <li>Kappa</li>
+                    <li>Trenchcoats</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Mina Sidor</h3>
+                <ul>
+                    <li>Mina Ordrar</li>
+                    <li>Mitt Konto</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Kundtjänst</h3>
+                <ul>
+                    <li>Returnpolicy</li>
+                    <li>Integritetspolicy</li>
+                </ul>
+            </div>
+        </div>
+        <small class="center">&copy; Freaky Fashion</small>
+    </footer>
+
+</body>
+</html>
+

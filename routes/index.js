@@ -71,13 +71,9 @@ router.get("/basket", function (req, res, next) {
 });
 
 router.get("/checkout", function (req, res, next) {
-  const selectProducts = db.prepare("SELECT * FROM products");
-  const products = selectProducts.all();
-
-  res.render("checkout", {
-    title: "Checkout",
-    products: products,
-  });
+  const cart = req.session.cart || [];
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  res.render("checkout", { title: "Checkout", cart, total });
 });
 
 // ADMIN ROUTES
@@ -133,6 +129,181 @@ router.post("/admin/new", upload.single("picture"), function (req, res, next) {
   );
 
   res.redirect("/admin/products");
+});
+
+// Cart
+router.get("/cart", (req, res) => {
+  const cart = req.session.cart || [];
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  res.render("cart", { cart, total });
+});
+
+// Add to cart
+router.post("/add-to-cart", (req, res) => {
+  const { id } = req.body;
+  const product = db.prepare("SELECT * FROM products WHERE id = ?").get(id);
+
+  if (!product) return res.status(404).send("Product not found");
+
+  if (!req.session.cart) req.session.cart = [];
+
+  const cart = req.session.cart;
+  const existingItem = cart.find((item) => item.id === product.id);
+
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push({ ...product, quantity: 1 });
+  }
+
+  // Redirect back to previous page
+  res.redirect("back");
+});
+
+// Uppdatera qty cart
+router.post("/cart/update", (req, res) => {
+  const cart = req.session.cart || [];
+  const { id, quantity } = req.body;
+
+  const itemId = parseInt(id);
+  const newQty = parseInt(quantity);
+
+  if (isNaN(itemId) || isNaN(newQty) || newQty < 1) {
+    return res.status(400).json({ error: "Invalid ID or quantity" });
+  }
+
+  req.session.cart = cart.map((item) =>
+    item.id === itemId ? { ...item, quantity: newQty } : item
+  );
+
+  res.json({ success: true });
+});
+
+// ta bort vara från cart
+router.post("/cart/remove", (req, res) => {
+  const cart = req.session.cart || [];
+  const { id } = req.body;
+
+  const itemId = parseInt(id);
+  if (isNaN(itemId)) {
+    return res.status(400).json({ error: "Invalid ID" });
+  }
+
+  req.session.cart = cart.filter((item) => item.id !== itemId);
+
+  res.json({ success: true });
+});
+
+// Checkout
+
+router.get("/checkout", (req, res) => {
+  const cart = req.session.cart || [];
+
+  const total = cart.reduce((sum, item) => {
+    return sum + item.price * item.quantity;
+  }, 0);
+
+  res.render("checkout", { cart, total });
+});
+
+router.post("/checkout", (req, res) => {
+  const cart = req.session.cart || [];
+
+  // Beräkna totalen
+  const total = cart.reduce((sum, item) => {
+    return sum + item.price * item.quantity;
+  }, 0);
+
+  // Omvandla varukorgen till en JSON-sträng
+  const cartJson = JSON.stringify(cart);
+
+  // Skapa en ny order
+  const stmt = db.prepare(`
+    INSERT INTO orders (firstname, lastname, email, street, postal, city, cart, total)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+  `);
+
+  const result = stmt.run(
+    req.body.firstname,
+    req.body.lastname,
+    req.body.email,
+    req.body.street,
+    req.body.postal,
+    req.body.city,
+    cartJson, // JSON-sträng med produkter
+    total // Totalbeloppet för ordern
+  );
+
+  const orderId = result.lastInsertRowid;
+
+  // Spara varje varukorgsobjekt i order_items-tabellen
+  const insertItemStmt = db.prepare(`
+    INSERT INTO order_items (order_id, product_name, product_price, quantity, total)
+    VALUES (?, ?, ?, ?, ?)
+  `);
+
+  cart.forEach((item) => {
+    insertItemStmt.run(
+      orderId, // Relatera till den nyss skapade ordern
+      item.name,
+      item.price,
+      item.quantity,
+      item.price * item.quantity
+    );
+  });
+
+  // Ta bort varukorgen från sessionen
+  req.session.cart = [];
+
+  // Skicka vidare till bekräftelsesidan
+  res.redirect(`/confirmation?id=${orderId}`);
+});
+
+// Hämta orderkonfirmationsida
+router.get("/confirmation", (req, res) => {
+  const orderId = req.query.id;
+
+  // Hämta orderdetaljer
+  const orderStmt = db.prepare("SELECT * FROM orders WHERE id = ?");
+  const order = orderStmt.get(orderId);
+
+  if (!order) {
+    return res.status(404).send("Order not found.");
+  }
+
+  // Omvandla varukorgen från JSON till ett objekt
+  let cart = [];
+  try {
+    cart = JSON.parse(order.cart);
+  } catch (err) {
+    return res.status(500).send("Kunde inte tolka varukorgen.");
+  }
+
+  // Hämta produkterna i ordern
+  const itemsStmt = db.prepare("SELECT * FROM order_items WHERE order_id = ?");
+  const items = itemsStmt.all(orderId);
+
+  // Rendera tacksidan
+  res.render("confirmation", { order, items, cart });
+});
+
+// Sökfunktion och söksida söker på namn och beskrivning
+router.get("/search", (req, res) => {
+  const query = req.query.q;
+
+  if (!query) {
+    return res.render("search", { products: [], query: "" });
+  }
+
+  const stmt = db.prepare(`
+    SELECT * FROM products
+    WHERE name LIKE ? OR description LIKE ?
+  `);
+
+  const wildcard = `%${query}%`;
+  const products = stmt.all(wildcard, wildcard);
+
+  res.render("search", { products, query, slugify });
 });
 
 module.exports = router;

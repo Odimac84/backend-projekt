@@ -14,6 +14,7 @@
                 });
             });
         });
+
     </script>
     
 </head>
@@ -23,7 +24,10 @@
         <div class="header-logo-search">
             <img src="https://placehold.co/400x200.png" alt="logo" class="logo">
             <div class="search-bar">
-                <input type="text" id="search" class placeholder="Sök produkt">
+                <form action="/search" method="GET">
+                    <input type="text" name="q" placeholder="Sök produkt" value="<%= typeof query !== 'undefined' ? query : '' %>">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
                 <div class="header-buttons">
                     <i class="fa-solid fa-cart-shopping"></i>
                     <i class="fa-solid fa-heart"></i>

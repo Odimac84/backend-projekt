@@ -262,6 +262,7 @@ h1, h2 {
 
 .cart-summary-row {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   width: 100%;
   border: 1px solid black;
@@ -274,6 +275,12 @@ h1, h2 {
   font-size: 1rem;
 }
 
+.qty-input {
+  width: 50px;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
 .bold {
   font-weight: bold;
 }
@@ -284,6 +291,9 @@ h1, h2 {
   align-items: center;
   gap: 1rem;
   margin: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
 }
 .cart-summary-price {
   flex-direction: column;

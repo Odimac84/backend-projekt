@@ -77,45 +77,49 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Svart T-Shirt</td>
-                        <td>1</td>
-                        <td>199 SEK</td>
-                        <td>199 SEK</td>
-                    </tr>
-                    <tr>
-                        <td>Vit T-Shirt</td>
-                        <td>2</td>
-                        <td>199 SEK</td>
-                        <td>398 SEK</td>
-                    </tr>
+                    <% cart.forEach(item => { %>
+                        <tr>
+                            <td><%= item.name %></td>
+                            <td><%= item.quantity %></td>
+                            <td><%= item.price %> SEK</td>
+                            <td><%= (item.price * item.quantity).toFixed(2) %> SEK</td>
+                        </tr>
+                    <% }) %>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3"><strong>Totalt</strong></td>
+                        <td><strong><%= total.toFixed(2) %> SEK</strong></td>
+                    </tr>
+                </tfoot>
             </table>
         </section>
         
         <section class="customer-info">
             <h2>Kunduppgifter</h2>
-            <form>
+            <form method="POST" action="/checkout">
                 <div class="form-group form-group-name">
                     <label for="firstname">
-                        <input type="text" placeholder="Förnamn">
+                        <input type="text" name="firstname" placeholder="Förnamn">
                     </label>
                     <label for="lastname">
-                        <input type="text" placeholder="Efternamn">
+                        <input type="text" name="lastname" placeholder="Efternamn">
                     </label>
                 </div>
                 <div class="form-group-row">
-                    <input type="email" placeholder="E-post">
+                    <input type="email" name="email" placeholder="E-post">
                 </div>
                 <fieldset class="address-fieldset">
                     <legend>Adress</legend>
-                    <input class="form-group-row" type="text" placeholder="Gata">
+                    <input class="form-group-row" type="text" name="street" placeholder="Gata">
                     <div class="form-group">
-                        <input type="text" placeholder="Postnummer">
-                        <input type="text" placeholder="Stad">
+                        <input type="text" name="postal" placeholder="Postnummer">
+                        <input type="text" name="city" placeholder="Stad">
                     </div>
                 </fieldset>
-                <label class="newsletter-label"><input type="checkbox" class="newsletter-checkbox"> Jag vill ta emot nyhetsbrev</label>
+                <label class="newsletter-label">
+                    <input type="checkbox" name="newsletter" class="newsletter-checkbox"> Jag vill ta emot nyhetsbrev
+                </label>
                 <button type="submit" class="checkout-button">Köp</button>
             </form>
         </section>

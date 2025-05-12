@@ -14,18 +14,20 @@
                 });
             });
         });
+
     </script>
     
 </head>
-
 <body>
-
-    <!-- HEADER -->
     <header class="header-main">
+        <!-- LOGO samt knappar för kassa och wishlist -->
         <div class="header-logo-search">
             <img src="https://placehold.co/400x200.png" alt="logo" class="logo">
             <div class="search-bar">
-                <input type="text" id="search" placeholder="Sök produkt">
+                <form action="/search" method="GET">
+                    <input type="text" name="q" placeholder="Sök produkt" value="<%= typeof query !== 'undefined' ? query : '' %>">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
                 <div class="header-buttons">
                     <i class="fa-solid fa-cart-shopping"></i>
                     <i class="fa-solid fa-heart"></i>
@@ -41,70 +43,23 @@
             </ul>
         </nav>
     </header>
-    <!-- Kassa -->
-    <main class="checkout-container">
-        <h1>Kassan</h1>
-        <section class="cart-summary">
-            <div class="cart-summary-row">
-                <div class="cart-summary-item">
-                    <p class="bold">1 x Svart T-Shirt </p>
-                    <p>199 SEK</p>
-                </div>
-                <div class="cart-summary-price">
-                    <p class="bold">199 SEK</p>
-                </div>
-            </div>
-            <div class="cart-summary-row">
-                <div class="cart-summary-item">
-                    <p class="bold">1 x Svart T-Shirt </p>
-                    <p>199 SEK</p>
-                </div>
-                <div class="cart-summary-price">
-                    <p class="bold">199 SEK</p>
-                </div>
-            </div>
-        </section>
-
-
-        <section class="cart-summary-tab">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Produkt</th>
-                        <th>Antal</th>
-                        <th>Pris</th>
-                        <th>Totalt</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Svart T-Shirt</td>
-                        <td>1</td>
-                        <td>199 SEK</td>
-                        <td>199 SEK</td>
-                    </tr>
-                    <tr>
-                        <td>Vit T-Shirt</td>
-                        <td>2</td>
-                        <td>199 SEK</td>
-                        <td>398 SEK</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-        
-    </main>
     
+    <main>
+        <section class="products">
+            <h1>Sökresultat för "<%= query %>"</h1>
 
-    <section class="center">
-        <div class="pointers-grid checkout-pointers">
-            <span><i class="fa-solid fa-box"></i> Gratis frakt och returer</span>
-            <span><i class="fa-solid fa-truck-fast"></i> Expressfrakt</span>
-            <span><i class="fa-solid fa-credit-card"></i> Säkra betalningar</span>
-            <span><i class="fa-solid fa-shirt"></i> Nyheter varje dag</span>
-        </div>
-    </section>
-    <!-- FOOTER -->
+            <% if (products.length === 0) { %>
+            <p>Inga produkter hittades.</p>
+            <% } else { %>
+                <p> Hittade <%= products.length %> produkter:</p>
+                <div class="product-grid">
+                <% products.forEach(product => { %>
+                    <%- include('partials/product-card', { product }) %>
+                <% }) %>
+                </div>
+            <% } %>
+        </section>
+    </main>
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-section">
@@ -133,6 +88,5 @@
         </div>
         <small class="center">&copy; Freaky Fashion</small>
     </footer>
-
 </body>
 </html>
