@@ -21,26 +21,7 @@
 <body>
 
     <!-- HEADER -->
-    <header class="header-main">
-        <div class="header-logo-search">
-            <img src="https://placehold.co/400x200.png" alt="logo" class="logo">
-            <div class="search-bar">
-                <input type="text" id="search" placeholder="Sök produkt">
-                <div class="header-buttons">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <i class="fa-solid fa-heart"></i>
-                </div>
-            </div>
-        </div>
-        <nav>
-            <ul class = "nav-links">
-                <li><a href="#">Nyheter</a></li>
-                <li><a href="#">Bästsäljare</a></li>
-                <li><a href="#">Kvinnor</a></li>
-                <li><a href="#">Män</a></li>
-            </ul>
-        </nav>
-    </header>
+    <%- include('partials/header') %>
     <!-- Kassa -->
     <main class="checkout-container">
         <h1>Kassan</h1>
@@ -126,43 +107,7 @@
     </main>
     
 
-    <section class="center">
-        <div class="pointers-grid checkout-pointers">
-            <span><i class="fa-solid fa-box"></i> Gratis frakt och returer</span>
-            <span><i class="fa-solid fa-truck-fast"></i> Expressfrakt</span>
-            <span><i class="fa-solid fa-credit-card"></i> Säkra betalningar</span>
-            <span><i class="fa-solid fa-shirt"></i> Nyheter varje dag</span>
-        </div>
-    </section>
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-section">
-                <h3>Shopping</h3>
-                <ul>
-                    <li>Vinterjackor</li>
-                    <li>Pufferjackor</li>
-                    <li>Kappa</li>
-                    <li>Trenchcoats</li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Mina Sidor</h3>
-                <ul>
-                    <li>Mina Ordrar</li>
-                    <li>Mitt Konto</li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Kundtjänst</h3>
-                <ul>
-                    <li>Returnpolicy</li>
-                    <li>Integritetspolicy</li>
-                </ul>
-            </div>
-        </div>
-        <small class="center">&copy; Freaky Fashion</small>
-    </footer>
+    <%- include('partials/footer') %>
 
 </body>
 </html>

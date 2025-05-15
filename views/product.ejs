@@ -38,26 +38,7 @@
 <body>
 
     <!-- HEADER -->
-    <header class="header-main">
-        <div class="header-logo-search">
-            <img src="https://placehold.co/400x200.png" alt="logo" class="logo">
-            <div class="search-bar">
-                <input type="text" id="search" placeholder="Sök produkt">
-                <div class="header-buttons">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <i class="fa-solid fa-heart"></i>
-                </div>
-            </div>
-        </div>
-        <nav>
-            <ul class = "nav-links">
-                <li><a href="#">Nyheter</a></li>
-                <li><a href="#">Bästsäljare</a></li>
-                <li><a href="#">Kvinnor</a></li>
-                <li><a href="#">Män</a></li>
-            </ul>
-        </nav>
-    </header>
+    <%- include('partials/header') %>
 
     <!-- PRODUKTSEKTION -->
     <main class="container">
@@ -76,11 +57,14 @@
                 <p><%= product.description %></p>
                 <p class="brand"><%= product.brand %></p>
                 <p class="price"><%= product.price %></p>
-                <button class="buy-button">🛒 Lägg i varukorg</button>
+                <form method="POST" action="/add-to-cart">
+                    <input type="hidden" name="id" value="<%= product.id %>">
+                    <input type="hidden" name="name" value="<%= product.name %>">
+                    <input type="hidden" name="price" value="<%= product.price %>">
+                    <button class="buy-button" type="submit">🛒 Lägg i varukorg</button>
+                </form>
             </div>
         </div>
-
-        <!-- Liknande produkter -->
 
         <section class="carousel">
             <div class="carousel-container">
@@ -144,44 +128,8 @@
                 <button class="carousel-button next">&gt;</button>
             </div>
         </section>
-        <section class="center">
-            <div class="pointers-grid">
-                <span><i class="fa-solid fa-box"></i> Gratis frakt och returer</span>
-                <span><i class="fa-solid fa-truck-fast"></i> Expressfrakt</span>
-                <span><i class="fa-solid fa-credit-card"></i> Säkra betalningar</span>
-                <span><i class="fa-solid fa-shirt"></i> Nyheter varje dag</span>
-            </div>
-        </section>
     </main>
-        <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-section">
-                <h3>Shopping</h3>
-                <ul>
-                    <li>Vinterjackor</li>
-                    <li>Pufferjackor</li>
-                    <li>Kappa</li>
-                    <li>Trenchcoats</li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Mina Sidor</h3>
-                <ul>
-                    <li>Mina Ordrar</li>
-                    <li>Mitt Konto</li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Kundtjänst</h3>
-                <ul>
-                    <li>Returnpolicy</li>
-                    <li>Integritetspolicy</li>
-                </ul>
-            </div>
-        </div>
-        <small class="center">&copy; Freaky Fashion</small>
-    </footer>
+        <%- include('partials/footer') %>
 
 </body>
 </html>

@@ -1,0 +1,46 @@
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".footer-section h3").forEach(header => {
+            header.addEventListener("click", function () {
+                this.parentElement.classList.toggle("active");
+            });
+        });
+    });
+
+</script>
+<section class="center">
+    <div class="pointers-grid">
+        <span><i class="fa-solid fa-box"></i> Gratis frakt och returer</span>
+        <span><i class="fa-solid fa-truck-fast"></i> Expressfrakt</span>
+        <span><i class="fa-solid fa-credit-card"></i> Säkra betalningar</span>
+        <span><i class="fa-solid fa-shirt"></i> Nyheter varje dag</span>
+    </div>
+</section>
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-section">
+            <h3>Shopping</h3>
+            <ul>
+                <li>Vinterjackor</li>
+                <li>Pufferjackor</li>
+                <li>Kappa</li>
+                <li>Trenchcoats</li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Mina Sidor</h3>
+            <ul>
+                <li>Mina Ordrar</li>
+                <li>Mitt Konto</li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Kundtjänst</h3>
+            <ul>
+                <li>Returnpolicy</li>
+                <li>Integritetspolicy</li>
+            </ul>
+        </div>
+    </div>
+    <small class="center">&copy; Freaky Fashion</small>
+</footer>

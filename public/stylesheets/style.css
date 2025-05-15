@@ -31,6 +31,9 @@ body {
   text-decoration: none;
 }
 
+.search-bar-container {
+  border: 1px solid black;
+}
 .header-logo-search {
   display: flex;
   flex-direction: column;
@@ -111,10 +114,12 @@ justify-content: space-between;
 }
 
 .product-card img {
-  width: 200px; 
-  height: 300px;
+  width: 100%; 
+  height: auto;
   object-fit: cover;
+  display: block;
   border-radius: 5px;
+  aspect-ratio: 9/9;
 }
 
 .product-card-info {
