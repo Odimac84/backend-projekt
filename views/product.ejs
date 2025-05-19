@@ -56,7 +56,7 @@
                 <h2><%= product.name %></h2>
                 <p><%= product.description %></p>
                 <p class="brand"><%= product.brand %></p>
-                <p class="price"><%= product.price %></p>
+                <p class="price"><%= product.price %> SEK</p>
                 <form method="POST" action="/add-to-cart">
                     <input type="hidden" name="id" value="<%= product.id %>">
                     <input type="hidden" name="name" value="<%= product.name %>">
@@ -70,60 +70,16 @@
             <div class="carousel-container">
                 <button class="carousel-button prev">&lt;</button>
                 <div class="carousel-track">
-                    <a href="product-details.html" class="carousel-item product-card-carousel">
-                        <div class="product-image-container">
-                            <img src="../../images/tshirt.jpg" alt="Svart T-Shirt">
-                        </div>
-                        <div class="product-card-info">
-                            <h3 class="no-decoration">Svart T-Shirt</h3>
-                            <p class="no-decoration">199 SEK</p>
-                        </div>
-                    </a>
-                    <a href="product-details.html" class="carousel-item product-card-carousel">
-                        <div class="product-image-container">
-                            <img src="../../images/tshirt.jpg" alt="Orange T-Shirt">
-                        </div>
-                        <div class="product-card-info">
-                            <h3 class="no-decoration">Orange T-Shirt</h3>
-                            <p class="no-decoration">199 SEK</p>
-                        </div>
-                    </a>
-                    <a href="product-details.html" class="carousel-item product-card-carousel">
-                        <div class="product-image-container">
-                            <img src="../../images/tshirt.jpg" alt="Grön T-Shirt">
-                        </div>
-                        <div class="product-card-info">
-                            <h3 class="no-decoration">Grön T-Shirt</h3>
-                            <p class="no-decoration">199 SEK</p>
-                        </div>
-                    </a>
-                    <a href="product-details.html" class="carousel-item product-card-carousel">
-                        <div class="product-image-container">
-                            <img src="../../images/tshirt.jpg" alt="Vit T-Shirt">
-                        </div>
-                        <div class="product-card-info">
-                            <h3 class="no-decoration">Vit T-Shirt</h3>
-                            <p class="no-decoration">199 SEK</p>
-                        </div>
-                    </a>
-                    <a href="product-details.html" class="carousel-item product-card-carousel">
-                        <div class="product-image-container">
-                            <img src="../../images/tshirt.jpg" alt="Blå T-Shirt">
-                        </div>
-                        <div class="product-card-info">
-                            <h3 class="no-decoration">Blå T-Shirt</h3>
-                            <p class="no-decoration">199 SEK</p>
-                        </div>
-                    </a>
-                    <a href="product-details.html" class="carousel-item product-card-carousel">
-                        <div class="product-image-container">
-                            <img src="../../images/tshirt.jpg" alt="Gul T-Shirt">
-                        </div>
-                        <div class="product-card-info">
-                            <h3 class="no-decoration">Gul T-Shirt</h3>
-                            <p class="no-decoration">199 SEK</p>
-                        </div>
-                    </a>
+                    <% 
+                        const now = new Date();
+                        const visibleProducts = products
+                            .sort(() => 0.5 - Math.random())
+                            .slice(0, 5);
+
+                        visibleProducts.forEach(product => {
+                        %>
+                        <%- include('partials/carousel-product-card', { product }) %>
+                        <% }) %>
                 </div>
                 <button class="carousel-button next">&gt;</button>
             </div>

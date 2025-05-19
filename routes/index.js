@@ -28,11 +28,17 @@ const upload = multer({ storage });
 router.get("/", function (req, res, next) {
   const selectProducts = db.prepare("SELECT * FROM products");
   const products = selectProducts.all();
+  const selectSpots = db.prepare("SELECT * FROM spots ");
+  const spots = selectSpots.all();
+  const selectHero = db.prepare("SELECT * FROM hero WHERE id = ?");
+  const hero = selectHero.get(1);
 
   res.render("index", {
     title: "Freaky Friday",
-    products: products,
-    slugify: slugify,
+    products,
+    spots: spots.slice(0, 3),
+    hero,
+    slugify,
   });
 });
 
@@ -53,9 +59,21 @@ router.get("/products/:id/:slug", function (req, res, next) {
     return res.redirect(`/products/${product.id}/${correctSlug}`);
   }
 
+  const selectAllProducts = db.prepare("SELECT * FROM products");
+  const allProducts = selectAllProducts.all();
+
+  const now = new Date();
+
+  const visibleProducts = allProducts.filter((p) => {
+    const pubDate = new Date(p.publication_date);
+    return !isNaN(pubDate) && pubDate <= now;
+  });
+
   res.render("product", {
     title: product.name,
     product: product,
+    products: visibleProducts,
+    slugify,
   });
 });
 
@@ -297,11 +315,13 @@ router.get("/search", (req, res) => {
 
   const stmt = db.prepare(`
     SELECT * FROM products
-    WHERE name LIKE ? OR description LIKE ?
+    WHERE name LIKE ?
   `);
 
+  // WHERE name LIKE ? OR description LIKE ? för att söka på namn eller beskrivning
+
   const wildcard = `%${query}%`;
-  const products = stmt.all(wildcard, wildcard);
+  const products = stmt.all(wildcard);
 
   res.render("search", { products, query, slugify });
 });

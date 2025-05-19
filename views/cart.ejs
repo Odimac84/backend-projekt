@@ -125,8 +125,8 @@
                                         min="1"
                                         />
                                     </td>
-                                    <td><%= item.price.toFixed(2) %></td>
-                                    <td><%= (item.price * item.quantity).toFixed(2) %></td>
+                                    <td><%= item.price.toFixed(2) %> SEK</td>
+                                    <td><%= (item.price * item.quantity).toFixed(2) %> SEK</td>
                                     <td><button class="remove-btn" data-id="<%= item.id %>">❌</button></td>
                                 </tr>
                             <% }) %>
@@ -135,7 +135,7 @@
                 </form>
                 <h3>Total: <%= total.toFixed(2) %></h3>
                 <form method="GET" action="/checkout">
-                  <button type="submit">Checkout</button>
+                  <button type="submit" class="buy-button">Checkout</button>
                 </form>
             <% } %>
         </section>

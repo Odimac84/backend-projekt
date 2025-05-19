@@ -22,7 +22,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  text-align: center;
   background: Lightgray;
   color: Black;
 }
@@ -122,11 +121,18 @@ justify-content: space-between;
   aspect-ratio: 9/9;
 }
 
+.product-grid form {
+  padding-bottom: 10px;
+}
+
 .product-card-info {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
 }
 .column {
   display: flex;
@@ -395,6 +401,19 @@ label {
   cursor: pointer;
   font-size: 1rem;
   text-align: center;
+}
+
+.buy-button {
+  display: block;
+  max-width:200px;
+  padding: 10px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .checkout-button:hover {

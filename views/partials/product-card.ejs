@@ -32,13 +32,13 @@
     </div>
     <div class="product-card-info">
         <h3 class="no-decoration column"><%= product.name %></h3>
-        <p class="no-decoration column"><%= product.price %></p>
+        <p class="no-decoration column"><%= product.price %> SEK</p>
     </div>
     <p class="no-decoration"><%= product.brand %></p>
     <form method="POST" action="/add-to-cart">
             <input type="hidden" name="id" value="<%= product.id %>">
             <input type="hidden" name="name" value="<%= product.name %>">
             <input type="hidden" name="price" value="<%= product.price %>">
-            <button type="submit">Add to Cart</button>
+            <button type="submit" class="buy-button">🛒 Lägg i varukorg</button>
     </form>
 </a>

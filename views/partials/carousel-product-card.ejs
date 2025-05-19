@@ -1,0 +1,15 @@
+<a href="products/<%= product.id %>/<%= slugify(product.name, { lower: true }) %>" class="carousel-item product-card-carousel">
+    <div class="product-image-container">
+        <% 
+        const isWithinDays = (date, days) => new Date() - new Date(date) <= days * 24 * 60 * 60 * 1000; 
+        if (isWithinDays(product.publication_date, 7)) { 
+        %>
+            <span class="badge">Nyhet</span>
+        <% } %>
+        <img src="../../images/<%= product.picture %>" alt="bild av <%= product.name %>">
+    </div>
+    <div class="product-card-info">
+        <h3 class="no-decoration"><%= product.name %></h3>
+        <p class="no-decoration"><%= product.price %> SEK</p>
+    </div>
+</a>

@@ -14,46 +14,27 @@
     <%- include('partials/header') %>
     
     <main>
-        <section class="hero">
-            <img src="images/tshirt.jpg" alt="Hero">
-            <div class="hero-text">
-                <h2>Stil för alla</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos accusantium excepturi perferendis molestiae quia saepe beatae. Tempore, inventore perspiciatis est labore facere sunt corporis. Quo minima sed pariatur aliquid magnam!</p>
-            </div>
-        </section>
+        <%- include('partials/hero', { hero }) %>
         <section class="spots">
-            <div class="spot">
-                <img src="images/tshirt.jpg" alt="Spot 1">
-                <div class="spot-text">
-                    <h2>Jackor</h2>
-                    <p>Stiliga jackor för alla tillfällen</p>
-                </div>
-            </div>
-            <div class="spot">
-                <img src="images/tshirt.jpg" alt="Spot 2">
-                <div class="spot-text">
-                    <h2>Accessoarer</h2>
-                    <p>Stiliga accessoarer för alla tillfällen</p>
-                </div>
-            </div>
-            <div class="spot">
-                <img src="images/tshirt.jpg" alt="Spot 3">
-                <div class="spot-text">
-                    <h2>Skor</h2>
-                    <p>Stiliga skor för alla tillfällen</p>
-                </div>
-            </div>
+            <% spots.forEach(spot => { %>
+                <%- include('partials/spots', { spot }) %>
+            <% }); %>
         </section>
         <section class="products">
             <h2>Populära Produkter</h2>
             <div class="product-grid">  
-               <% const shuffledProducts = products.sort(() => 0.5 - Math.random());
-               shuffledProducts.slice(0, 8).forEach(product => { 
-               %>
-                 <%- include('partials/product-card', { product }) %>
-               <% }) %>
-                
-            </div>
+                <% 
+                  const now = new Date();
+                  const visibleProducts = products
+                    .filter(product => new Date(product.publication_date) <= now)
+                    .sort(() => 0.5 - Math.random())
+                    .slice(0, 8);
+              
+                  visibleProducts.forEach(product => { 
+                %>
+                  <%- include('partials/product-card', { product }) %>
+                <% }) %>
+              </div>
         </section>
     </main>
     <%- include('partials/footer') %>

@@ -25,12 +25,18 @@
         <section class="products">
             <h1>Sökresultat för "<%= query %>"</h1>
 
-            <% if (products.length === 0) { %>
-            <p>Inga produkter hittades.</p>
+
+            <% const now = new Date();
+            const visibleProducts = products
+            .filter(product => new Date(product.publication_date) <= now);
+            if (visibleProducts.length === 0) { %>
+            <p class="center">Inga produkter hittades.</p>
             <% } else { %>
-                <p> Hittade <%= products.length %> produkter:</p>
-                <div class="product-grid">
-                <% products.forEach(product => { %>
+                <p> Hittade <%= visibleProducts.length %> produkter:</p>
+                <div class="product-grid"> 
+                <% 
+                    visibleProducts.forEach(product => { 
+                %>
                     <%- include('partials/product-card', { product }) %>
                 <% }) %>
                 </div>
